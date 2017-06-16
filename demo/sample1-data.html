@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>vue demo 1</title>
+    <meta charset="utf-8">
+    <link href='http://getbootstrap.com/dist/css/bootstrap.min.css' rel='stylesheet'>
+</head>
+<body>
+<div class="container">
+    <h2>vue demo 1</h2>
+    <div id="app">
+      <a href="###" @click="toggleMore">{{toggleText}}</a>
+      <div v-if="showMore">
+        <p>{{detailText}}</p>
+      </div>
+    </div>
+</div>
+
+<script src="http://vuejs.org/js/vue.js"></script>
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    showMore: true,
+    toggleText: '收起更多',
+    detailText: '这里有更多内容这里有更多内容这里有更多内容。'
+  },
+  methods: {
+    toggleMore: function() {
+        this.showMore = !this.showMore;
+    }
+  }
+})
+</script>
+
+</body>
+</html>

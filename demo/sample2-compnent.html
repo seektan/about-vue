@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>vue demo 2</title>
+    <meta charset="utf-8">
+    <link href='http://getbootstrap.com/dist/css/bootstrap.min.css' rel='stylesheet'>
+</head>
+<body>
+<div class="container">
+    <h2>vue demo 2</h2>
+    <div id="app">
+        <h3>list1</h3>
+        <todo-list :list="listData"></todo-list>
+
+        <h3>list2</h3>
+        <todo-list :list="listData" list-id="list2" @comp-click="listItemClick">
+            <template slot="listItem" scope="props">{{props.item.title}} ({{props.item.time}}小时)</template>
+        </todo-list>
+        当前点击的是：{{clickItem}}
+    </div>
+</div>
+
+<script src="http://vuejs.org/js/vue.js"></script>
+<script>
+var app,
+    todoList = {
+        template: '<ul><li v-for="item in list" @click="itemClick(item.id)"><slot name="listItem" :item="item">{{item.title}}</slot></li></ul>',
+        props: {
+            list: {
+                type: Array,
+                required: true
+            },
+            listId: String
+        },
+        computed: {
+            length: function() {
+                return this.list.length;
+            }
+        },
+        data:function () {
+            return {
+                
+            }
+        },
+        methods: {
+            itemClick: function(val) {
+                this.$emit('comp-click', this.listId + " - " + val);
+            }
+        }
+    };
+
+app = new Vue({
+    el: '#app',
+    data: {
+        listData: [
+            {id: 1, title: '了解Vue', time: 2},
+            {id: 2, title: '分析业务场景', time: 3},
+            {id: 3, title: '学习、使用Vue', time: 5}
+        ],
+        clickItem: '--'
+    },
+    components: {
+        'todo-list': todoList
+    },
+    methods: {
+        listItemClick: function(val) {
+            this.clickItem = val;
+        }
+    }
+});
+</script>
+
+</body>
+</html>

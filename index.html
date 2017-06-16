@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>渐进--从jQuery到Vue</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/night.css" id="theme">
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <script>
+        document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<!-- 
+http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line 
+http://gejiawen.github.io/2015/10/08/jquery-coding-standards-and-best-practices/?utm_source=tuicool
+-->
+<body>
+    <div class="reveal">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h1>渐进</h1>
+                <h2>从jQuery到Vue</h2>
+				<h4>凡事往往，皆为序章</h4>
+                <p>jacobtan/2017-6</p>
+            </section>
+
+            <section>
+                <h2>目录</h2>
+                <ul>
+                    <li class="fragment">关于jQuery</li>
+                    <li class="fragment">关于Vue</li>
+                    <li class="fragment">渐进，凡事往往，皆为序章</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>关于jQuery</h2>
+                <ul>
+                    <li class="fragment">DOM操作</li>
+                    <li class="fragment">ajax</li>
+                    <li class="fragment">兼容性</li>
+                    <li class="fragment">结构、表现、行为分离</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>关于Vue</h2>
+                <ul>
+                    <li class="fragment">响应式，一切围绕数据</li>
+                    <li class="fragment">组件，DRY(Dont Repeat Yourself)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>数据</h2>
+                <ul>
+                    <li>数据的变化 -> 界面变化</li>
+                    <li>无需操作DOM，只要更新数据</li>
+                    <li><a href="demo/sample1-data.html" target="_blank">demo 1</a></li>
+                </ul>
+<pre><code data-trim data-noescape>
+var app2 = new Vue({
+  el: '#app',
+  data: {
+    showMore: true,
+    toggleText: '收起更多',
+    detailText: '这里有更多内容这里有更多内容这里有更多内容。'
+  },
+  methods: {
+    toggleMore: function() {
+        this.showMore = !this.showMore;
+    }
+  }
+})
+</code></pre>
+            </section>
+
+            <section>
+                <h2>组件</h2>
+                <ul>
+                    <li>属性：自上往下的数据流动</li>
+                    <li>事件：自下往上的数据流动</li>
+                    <li>slot：模版结构自定义</li>
+                    <li><a href="demo/sample2-compnent.html" target="_blank">demo 2</a></li>
+                </ul>
+<pre><code data-trim data-noescape>
+&lt;h3&gt;list1&lt;/h3&gt;
+&lt;todo-list :list=&quot;listData&quot;&gt;&lt;/todo-list&gt;
+
+&lt;h3&gt;list2&lt;/h3&gt;
+&lt;todo-list :list=&quot;listData&quot; list-id=&quot;list2&quot; @comp-click=&quot;listItemClick&quot;&gt;
+    &lt;template slot=&quot;listItem&quot; scope=&quot;props&quot;&gt;{{props.item.title}} ({{props.item.time}}小时)&lt;/template&gt;
+&lt;/todo-list&gt;
+</code></pre>
+            </section>
+
+            <section>
+                <h2>渐进，不变的是变化</h2>
+                <ul>
+					<li class="fragment">一开始，我是拒绝的</li>
+					<li class="fragment">一定要本地构建吗？</li>
+					<li class="fragment">简单的模板引擎</li>
+					<li class="fragment">继续对DOM节点的操作(选择器)？</li>
+					<li class="fragment">组件，一个简单的js对象</li>
+					<li class="fragment">Render函数，AIO(All In One)</li>
+                    <li class="fragment">函数化组件 & 动态组件</li>
+					<li class="fragment">自定义指令(directive)，在你需要操作DOM的时候</li>								
+					<li class="fragment">工程化，vue-cli(SPA/multi-page)</li>
+				</ul>
+            </section>
+
+            <section>
+                <h2>一开始，我是拒绝的</h2>
+                <ul>
+                    <li>拒绝源于恐惧</li>
+                    <li>恐惧源于未知</li>
+                    <li>学习：虽然大部分人知道读书有用，但是坚持读书的人还是很少。</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>一定要本地构建吗？</h2>
+                <ul>
+                    <li>Vue: 渐进式 JavaScript 框架</li>
+                    <li>模板引擎 + 事件处理</li>
+                    <li>组件</li>
+                    <li>单文件组件</li>
+                    <li>单页/多页应用</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>模板引擎 + 事件处理</h2>
+                <ul>
+                    <li>jQuery在哪里？</li>
+                </ul>
+<pre><code data-trim data-noescape>
+&lt;div id=&quot;app&quot;&gt;
+  &lt;a href=&quot;###&quot; @click=&quot;toggleMore&quot;&gt;{{toggleText}}&lt;/a&gt;
+  &lt;div v-if=&quot;showMore&quot;&gt;
+    &lt;p&gt;{{detailText}}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    showMore: true,
+    toggleText: '收起更多',
+    detailText: '这里有更多内容这里有更多内容这里有更多内容。'
+  },
+  methods: {
+    toggleMore: function() {
+        this.showMore = !this.showMore;
+    }
+  }
+})
+</code></pre>
+            </section>
+
+            <section>
+                <h2>继续对DOM节点的操作(选择器)？</h2>
+                <ul>
+                    <li>尽量避免DOM操作（按需使用自定义指令）</li>
+                    <li>状态管理，数据即界面</li>
+                    <li>改变数据，DOM自动变更</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>组件，一个简单的js对象</h2>
+<pre><code data-trim data-noescape>
+var todoList = {
+    template: '<ul><li v-for="item in list" @click="itemClick(item.id)"><slot name="listItem" :item="item">{{item.title}}</slot></li></ul>',
+    props: {},
+    computed: {},
+    data:function () {},
+    methods: {}
+};
+
+app = new Vue({
+    el: '#app',
+    data: {
+    },
+    components: {
+        'todo-list': todoList
+    }
+    ....
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Render函数，AIO(All In One)</h2>
+                <ul>
+                    <li>template字符串处理太麻烦？</li>
+                </ul>
+<pre><code data-trim data-noescape>
+var todoList = {
+    props: {},
+    computed: {},
+    data:function () {},
+    methods: {}
+    // template: '...',
+    render: function(h) {
+        return h(
+            data.mark || "div",
+            {
+                class: data.cls || {"fn-btn": true, "btn-cue": true},
+                on: data.evt || {}
+            },
+            data.childrens || [h("span", this.state.text)]
+        );
+    }
+};
+</code></pre>
+            </section>
+
+            <section>
+                <h2>函数化组件 & 动态组件</h2>
+                <ul>
+                    <li>同一个容器根据条件显示不同组件</li>
+                </ul>
+<pre><code data-trim data-noescape>
+// 函数化组件
+functional: true,
+render: function (createElement, context) {
+function appropriateListComponent () {
+  var items = context.props.items
+  if (items.length === 0)           return EmptyList
+  if (typeof items[0] === 'object') return TableList
+  if (context.props.isOrdered)      return OrderedList
+  return UnorderedList
+}
+return createElement(
+  appropriateListComponent()
+  ...
+
+// 动态组件
+&lt;component v-bind:is="currentView"&gt;
+data: {
+    currentView: 'home'
+},
+components: {
+    home: { /* ... */ },
+    posts: { /* ... */ }
+    ...
+</code></pre>
+            </section>
+
+            <section>
+                <h2>自定义指令(directive)，在你需要操作DOM的时候</h2>
+                <ul>
+                    <li>自定义指令 directive</li>
+                    <li>DOM选择、事件处理</li>
+                </ul>
+<pre><code data-trim data-noescape>
+&lt;a v-icenter="401" ...
+&lt;div v-fixedwhensplit ...
+&lt;div v-clickoutsidetarget ...
+
+// 跳转到个人中心
+icenter: function(el, binding) {
+  if(!binding.value) {
+    return;
+  }
+  el.addEventListener('click', function() {
+    redirect('/platform/profile/icenter.html?tgp_id=' + binding.value);
+  });
+}
+
+</code></pre>
+            </section>
+
+            <section>
+                <h2>工程化，vue-cli(SPA/multi-page)</h2>
+                <ul>
+                    <li>vue-cli：webpack + gulp</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>THE END</h2>
+                <h2>谢谢大家</h2>
+            </section>
+
+         </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+
+</body>
+</html>
