@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>渐进 -- 从jQuery到Vue</title>
+    <title>渐进--从jQuery到Vue</title>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -65,6 +65,7 @@ http://gejiawen.github.io/2015/10/08/jquery-coding-standards-and-best-practices/
                 <ul>
                     <li>数据的变化 -> 界面变化</li>
                     <li>无需操作DOM，只要更新数据</li>
+                    <li>为什么数据中的对象更新有时候不会响应到界面？</li>
                     <li><a href="demo/sample1-data.html" target="_blank">demo 1</a></li>
                 </ul>
 <pre><code data-trim data-noescape>
@@ -121,8 +122,7 @@ var app2 = new Vue({
             <section>
                 <h2>一开始，我是拒绝的</h2>
                 <ul>
-                    <li>拒绝源于恐惧</li>
-                    <li>恐惧源于未知</li>
+                    <li>拒绝源于恐惧、未知</li>
                     <li>学习：虽然大部分人知道读书有用，但是坚持读书的人还是很少。</li>
                 </ul>
             </section>
@@ -257,10 +257,10 @@ components: {
             </section>
 
             <section>
-                <h2>自定义指令(directive)，在你需要操作DOM的时候</h2>
+                <h2>自定义指令(directive)</h2>
                 <ul>
                     <li>自定义指令 directive</li>
-                    <li>DOM选择、事件处理</li>
+                    <li>在你需要操作DOM的时候</li>
                 </ul>
 <pre><code data-trim data-noescape>
 &lt;a v-icenter="401" ...
@@ -281,9 +281,10 @@ icenter: function(el, binding) {
             </section>
 
             <section>
-                <h2>工程化，vue-cli(SPA/multi-page)</h2>
+                <h2>Vue大生态</h2>
                 <ul>
                     <li>vue-cli：webpack + gulp</li>
+                    <li>vue单文件组件</li>
                 </ul>
             </section>
 
