@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>slideToggle demo</title>
+  <link href='http://getbootstrap.com/dist/css/bootstrap.min.css' rel='stylesheet'>
+</head>
+<body>
+ 
+<ul>
+    <li>
+        <h3 class="title">1我是标题我是标题</h3>
+        <p class="summary">1我是内容我是内容我是内容我是内容我是内容我是内容</p>
+    </li>
+    <li>
+        <h3 class="title">2我是标题我是标题</h3>
+        <p class="summary">2我是内容我是内容我是内容我是内容我是内容我是内容</p>
+    </li>
+    <li>
+        <h3 class="title">3我是标题我是标题</h3>
+        <p class="summary">3我是内容我是内容我是内容我是内容我是内容我是内容</p>
+    </li>
+</ul>
+ 
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+$(".title").click(function() {
+  $(this).next('.summary').fadeToggle();
+});
+</script>
+ 
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>slideToggle demo</title>
+  <link href='http://getbootstrap.com/dist/css/bootstrap.min.css' rel='stylesheet'>
+  <style>
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-to {
+      opacity: 0
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+    <ul>
+        <li v-for="(item, index) in list">
+            <h3 class="title" @click="toggle(index)">{{item.title}}</h3>
+            <transition name="fade">
+                <p class="summary" v-if="item.show">{{item.summary}}</p>
+            </transition>
+        </li>
+    </ul>
+</div>
+
+<script src="http://vuejs.org/js/vue.js"></script>
+<script>
+var app = new Vue({
+  el: '#app',
+  data: {
+    list: [
+        {
+            title: '1我是标题我是标题',
+            summary: '1我是内容我是内容我是内容我是内容我是内容我是内容',
+            show: true
+        },
+        {
+            title: '2我是标题我是标题',
+            summary: '2我是内容我是内容我是内容我是内容我是内容我是内容',
+            show: true
+        },
+        {
+            title: '3我是标题我是标题',
+            summary: '3我是内容我是内容我是内容我是内容我是内容我是内容',
+            show: true
+        }
+    ]
+  },
+  methods: {
+    toggle: function(index) {
+        this.list[index].show = !this.list[index].show;
+    }
+  }
+})
+</script>
+ 
+</body>
+</html>
