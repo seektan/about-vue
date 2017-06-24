@@ -26,15 +26,15 @@ http://gejiawen.github.io/2015/10/08/jquery-coding-standards-and-best-practices/
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
 
-            <section>
+            <section data-background-image="imgs/cover.jpg">
                 <h1>渐进</h1>
                 <h2>从jQuery到Vue</h2>
-				<h4>凡事往往，皆为序章</h4>
+                <h4>凡事往往，皆为序章</h4>
                 <p>jacobtan/2017-6</p>
             </section>
 
             <section>
-                <h2>目录</h2>
+                <p><img src="imgs/ewolucja.jpg"></p>
                 <ul>
                     <li class="fragment">关于jQuery</li>
                     <li class="fragment">关于Vue</li>
@@ -42,6 +42,15 @@ http://gejiawen.github.io/2015/10/08/jquery-coding-standards-and-best-practices/
                 </ul>
             </section>
 
+            <section>
+                <p><a href="demo/toggle.html" target="_blank">jQuery demo</a></p>
+<pre><code data-trim data-noescape>
+$(".title").click(function() {
+  $(this).next('.summary').fadeToggle();
+});
+</code></pre>
+            </section>
+        
             <section>
                 <h2>关于jQuery</h2>
                 <ul>
@@ -53,6 +62,16 @@ http://gejiawen.github.io/2015/10/08/jquery-coding-standards-and-best-practices/
             </section>
 
             <section>
+                <p><a href="demo/toggle-vue.html" target="_blank">Vue demo</a></p>
+                <p><img src="imgs/toggle.png"></p>
+            </section>
+
+            <section>
+                <p>.vue</p>
+                <img src="imgs/vue.png">
+            </section>
+        
+            <section>
                 <h2>关于Vue</h2>
                 <ul>
                     <li class="fragment">响应式，一切围绕数据</li>
@@ -63,8 +82,9 @@ http://gejiawen.github.io/2015/10/08/jquery-coding-standards-and-best-practices/
             <section>
                 <h2>数据</h2>
                 <ul>
-                    <li>数据的变化 -> 界面变化</li>
+                    <li>状态管理：数据的变化 -> 界面变化</li>
                     <li>无需操作DOM，只要更新数据</li>
+                    <li>为什么数据中的对象更新有时候不会响应到界面？</li>
                     <li><a href="demo/sample1-data.html" target="_blank">demo 1</a></li>
                 </ul>
 <pre><code data-trim data-noescape>
@@ -104,27 +124,41 @@ var app2 = new Vue({
             </section>
 
             <section>
+                <p>html标签组合成页面</p>
+                <img src="imgs/pic_htmltree.gif">
+            </section>
+
+            <section>
+                <p>组件组合成页面</p>
+                <img src="imgs/comp.png">
+            </section>
+
+            <section>
+                <img src="imgs/m.png">
+            </section>
+
+            <section>
                 <h2>渐进，不变的是变化</h2>
                 <ul>
-					<li class="fragment">一开始，我是拒绝的</li>
-					<li class="fragment">一定要本地构建吗？</li>
-					<li class="fragment">简单的模板引擎</li>
-					<li class="fragment">继续对DOM节点的操作(选择器)？</li>
-					<li class="fragment">组件，一个简单的js对象</li>
-					<li class="fragment">Render函数，AIO(All In One)</li>
+                    <li class="fragment">一开始，我是拒绝的</li>
+                    <li class="fragment">一定要本地构建吗？</li>
+                    <li class="fragment">简单的模板引擎</li>
+                    <li class="fragment">继续对DOM节点的操作(选择器)？</li>
+                    <li class="fragment">组件，一个简单的js对象</li>
+                    <li class="fragment">Render函数，AIO(All In One)</li>
                     <li class="fragment">函数化组件 & 动态组件</li>
-					<li class="fragment">自定义指令(directive)，在你需要操作DOM的时候</li>								
-					<li class="fragment">工程化，vue-cli(SPA/multi-page)</li>
-				</ul>
+                    <li class="fragment">自定义指令(directive)，在你需要操作DOM的时候</li>                             
+                    <li class="fragment">Vue大生态(单文件组件、vue-cli)</li>
+                </ul>
             </section>
 
             <section>
                 <h2>一开始，我是拒绝的</h2>
                 <ul>
-                    <li>拒绝源于恐惧</li>
-                    <li>恐惧源于未知</li>
+                    <li>拒绝源于恐惧、未知</li>
                     <li>学习：虽然大部分人知道读书有用，但是坚持读书的人还是很少。</li>
                 </ul>
+                <p><img src="imgs/book.jpeg"></p>
             </section>
 
             <section>
@@ -198,10 +232,15 @@ app = new Vue({
 </code></pre>
             </section>
 
+            <section>       
+                <img src="imgs/m.png">
+            </section>
+
             <section>
                 <h2>Render函数，AIO(All In One)</h2>
                 <ul>
                     <li>template字符串处理太麻烦？</li>
+                    <li>Vue runtime: compile template to render</li>
                 </ul>
 <pre><code data-trim data-noescape>
 var todoList = {
@@ -225,20 +264,21 @@ var todoList = {
             </section>
 
             <section>
+                <h2>同一个容器根据条件显示不同组件</h2>            
+                <img src="imgs/component.png">
+            </section>
+
+            <section>
                 <h2>函数化组件 & 动态组件</h2>
-                <ul>
-                    <li>同一个容器根据条件显示不同组件</li>
-                </ul>
 <pre><code data-trim data-noescape>
 // 函数化组件
 functional: true,
 render: function (createElement, context) {
 function appropriateListComponent () {
   var items = context.props.items
-  if (items.length === 0)           return EmptyList
-  if (typeof items[0] === 'object') return TableList
-  if (context.props.isOrdered)      return OrderedList
-  return UnorderedList
+  if (items.type === 'ad')     return itemAd
+  if (items.type === 'card')   return itemCard
+  return itemText
 }
 return createElement(
   appropriateListComponent()
@@ -257,34 +297,55 @@ components: {
             </section>
 
             <section>
-                <h2>自定义指令(directive)，在你需要操作DOM的时候</h2>
+                <h2>收起按钮</h2>
+                <img src="imgs/close.png">
+            </section>
+
+            <section>
+                <h2>页面位置、状态变化之后</h2>
+                <img src="imgs/close1.png">
+            </section>
+
+            <section>
+                <h2>自定义指令(directive)</h2>
                 <ul>
                     <li>自定义指令 directive</li>
-                    <li>DOM选择、事件处理</li>
+                    <li>在你需要操作DOM的时候</li>
                 </ul>
 <pre><code data-trim data-noescape>
 &lt;a v-icenter="401" ...
 &lt;div v-fixedwhensplit ...
 &lt;div v-clickoutsidetarget ...
 
-// 跳转到个人中心
-icenter: function(el, binding) {
-  if(!binding.value) {
-    return;
-  }
-  el.addEventListener('click', function() {
-    redirect('/platform/profile/icenter.html?tgp_id=' + binding.value);
-  });
-}
+directives: {
+    // 跳转到个人中心
+    icenter: function(el, binding) {
+      if(!binding.value) {
+        return;
+      }
+      el.addEventListener('click', function() {
+        redirect('/platform/profile/icenter.html?tgp_id=' + binding.value);
+      });
+    }
 
 </code></pre>
             </section>
 
             <section>
-                <h2>工程化，vue-cli(SPA/multi-page)</h2>
+                <h2>Vue大生态</h2>
                 <ul>
                     <li>vue-cli：webpack + gulp</li>
+                    <li>vue单文件组件</li>
                 </ul>
+            </section>
+
+            <section>
+                <ul>
+                    <li>多文件构建：webpack</li>
+                    <li>文件、环境：gulp</li>
+                    <li class="fragment"><img src="imgs/config.png"><img src="imgs/soda.png"></li>
+                </ul>
+                
             </section>
 
             <section>
