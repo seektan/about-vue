@@ -242,6 +242,27 @@ app = new Vue({
                     <li>template字符串处理太麻烦？</li>
                 </ul>
 <pre><code data-trim data-noescape>
+&lt;p v-if="state.buyType === 0" class="fn-btn disabled"&gt;
+    &lt;span&gt;{{state.text}}&lt;/span&gt;
+&lt;/p&gt;
+&lt;a v-if="state.buyType === 1" :class="['fn-btn', 'btn-buy', {'disabled': !protocolChecked}]" @click="chooseGame"&gt;
+    &lt;span&gt;{{state.text}}&lt;/span&gt;
+&lt;/a&gt;
+&lt;div v-if="state.buyType === 2" class="fn-btn btn-cue"&gt;
+  &lt;span&gt;{{state.disableBuy.title || "敬请期待"}}&lt;/span&gt;&lt;a href="###" @click="disabledNote(state.disableBuy)"&gt;查看详情&lt;/a&gt;
+&lt;/div&gt;
+&lt;div v-if="state.buyType === 3" class="fn-btn btn-cue"&gt;
+  &lt;span&gt;{{state.text}}&lt;/span&gt;&lt;a href="###" @click="noteBuyMaster(state.master)"&gt;{{state.master.name || "本体"}}&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Render函数，AIO(All In One)</h2>
+                <ul>
+                    <li>Vue runtime: compile template to render</li>
+                </ul>
+<pre><code data-trim data-noescape>
 var todoList = {
     props: {},
     computed: {},
