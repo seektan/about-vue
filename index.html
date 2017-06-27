@@ -145,6 +145,7 @@ var app2 = new Vue({
                     <li class="fragment">简单的模板引擎</li>
                     <li class="fragment">继续对DOM节点的操作(选择器)？</li>
                     <li class="fragment">组件，一个简单的js对象</li>
+                    <li class="fragment">mixin，组件选项复用</li>
                     <li class="fragment">Render函数，AIO(All In One)</li>
                     <li class="fragment">函数化组件 & 动态组件</li>
                     <li class="fragment">自定义指令(directive)，在你需要操作DOM的时候</li>                             
@@ -157,6 +158,7 @@ var app2 = new Vue({
                 <ul>
                     <li>拒绝源于恐惧、未知</li>
                     <li>学习：虽然大部分人知道读书有用，但是坚持读书的人还是很少。</li>
+                    <li>pull vs push</li>
                 </ul>
                 <p><img src="imgs/book.jpeg"></p>
             </section>
@@ -232,6 +234,26 @@ app = new Vue({
 </code></pre>
             </section>
 
+            <section>
+                <h2>mixin，组件选项复用</h2>
+<pre><code data-trim data-noescape>
+comment-mixin.js
+export default {
+  props: {},
+  method: {deleteItem: function(){...}},
+  directives: {}
+};
+
+...
+<a @click="deleteItem">
+...
+import commentMixin from './comment-mixin';
+...
+mixins: [commentMixin]
+...
+</code></pre>
+            </section>
+
             <section>       
                 <img src="imgs/m.png">
             </section>
@@ -260,7 +282,8 @@ app = new Vue({
             <section>
                 <h2>Render函数，AIO(All In One)</h2>
                 <ul>
-                    <li>Vue runtime: compile template to render</li>
+                    <li>compile template to render</li>
+                    <li>only Vue runtime (.vue)</li>
                 </ul>
 <pre><code data-trim data-noescape>
 var todoList = {
